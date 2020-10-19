@@ -1,5 +1,5 @@
 run:Main.class
-	java PlayfairCipher $(A) $(B)
+	java PlayfairCipher $(ARGS)
 
 Main.class: PlayfairCipher.java
 	javac PlayfairCipher.java
