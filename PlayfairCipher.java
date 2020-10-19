@@ -101,7 +101,7 @@ public class PlayfairCipher{
         }
         return key;
     }
-    public String encrypt(String Source){
+    public String decode(String Source){
         String arr[] = Pair(Source);
         String a = new String();
         char b;
@@ -142,7 +142,7 @@ public class PlayfairCipher{
         }
         return a;
     }
-    public String decrypt(String Code){
+    public String encode(String Code){
         String a = new String();
         String arr[] = Pair(Code);
         char b;
@@ -193,8 +193,8 @@ public class PlayfairCipher{
         x.change(c);
         x.make();
         if(code(a) == true)
-        System.out.println(x.encrypt(b));
+        System.out.println(x.encode(b));
         else
-        System.out.println(x.decrypt(b));
+        System.out.println(x.decode(b));
     }
 }
