@@ -2,6 +2,14 @@ public class PlayfairCipher{
     private String Word = new String();
     private String Key = new String();
     private char grid[][] = new char[5][5];
+    static boolean code(String encode){
+        boolean a;
+        if (encode.equals("decode")){
+        a = false;
+        }
+        else a = true;
+        return a;
+    }
     public void change(String k){
         String move = new String();
         move = move + k.charAt(0);
@@ -27,7 +35,6 @@ public class PlayfairCipher{
                 }
             }
         }
-        System.out.println(Key);
         matrix();
     }
     private void matrix(){
@@ -35,10 +42,8 @@ public class PlayfairCipher{
         for (int i = 0; i < 5; i++){
             for (int j = 0; j < 5; j++){
                 grid[i][j] = Key.charAt(counter);
-                System.out.print(grid[i][j] + " ");
                 counter++;
             }
-            System.out.println();
         }
     }
     private String fix(String old_text){
@@ -64,7 +69,6 @@ public class PlayfairCipher{
                 text = text.substring(0, i + 1) + 'X' + text.substring(i + 1);
             }
         }
-        System.out.println(text);
         return text;
     }
     private String[] Pair(String new_string){
@@ -72,7 +76,7 @@ public class PlayfairCipher{
         int size = old.length();
         if (size % 2 != 0){
             size++;
-            old = old + 'X';
+            old = old + 'Z';
         }
         String x[] = new String[size / 2];
         int counter = 0;
@@ -110,32 +114,31 @@ public class PlayfairCipher{
             d = Size(b);
             e = Size(c);
             if (d[0] == e[0]){
-                if (d[1] < 4)
-                    d[1]++;
+                if (d[0] > 0)
+                    d[0]--;
                 else
-                    d[1] = 0;
-                if (e[1] < 4)
-                    e[1]++;
+                    d[0] = 4;
+                if (e[0] > 0)
+                    e[0]--;
                 else
-                    e[1] = 0;
+                    e[0] = 4;
             }
             else if (d[1] == e[1]){
-                if (d[0] < 4)
-                    d[0]++;
+                if (d[1] > 0)
+                    d[1]--;
                 else
-                    d[0] = 0;
-                if (e[0] < 4)
-                    e[0]++;
+                    d[1] = 4;
+                if (e[1] > 0)
+                    e[1]--;
                 else
-                    e[0] = 0;
+                    e[1] = 4;
             }
             else{
                 int temp = d[1];
                 d[1] = e[1];
                 e[1] = temp;
             }
-            a = a + grid[d[0]][d[1]]
-                    + grid[e[0]][e[1]];
+            a = a + grid[d[0]][d[1]] + grid[e[0]][e[1]];
         }
         return a;
     }
@@ -152,24 +155,24 @@ public class PlayfairCipher{
             d = Size(b);
             e = Size(c);
             if (d[0] == e[0]){
-                if (d[1] > 0)
-                    d[1]--;
+                if (d[0] < 4)
+                    d[0]++;
                 else
-                    d[1] = 4;
-                if (e[1] > 0)
-                    e[1]--;
+                    d[0] = 0;
+                if (e[0] < 4)
+                    e[0]++;
                 else
-                    e[1] = 4;
+                    e[0] = 0;
             }
             else if (d[1] == e[1]){
-                if (d[0] > 0)
-                    d[0]--;
+                if (d[1] < 4)
+                    d[1]++;
                 else
-                    d[0] = 4;
-                if (e[0] > 0)
-                    e[0]--;
+                    d[1] = 0;
+                if (e[1] < 4)
+                    e[1]++;
                 else
-                    e[0] = 4;
+                    e[1] = 0;
             }
             else{
                 int temp = d[1];
@@ -186,9 +189,12 @@ public class PlayfairCipher{
         PlayfairCipher x = new PlayfairCipher();
         String a = (args[0]);
         String b = (args[1]);
-        x.change(b);
+        String c = (args[2]);
+        x.change(c);
         x.make();
-        System.out.println("Encryption: " + x.encrypt(a));
-        System.out.println("Decryption: " + x.decrypt(a));
+        if(code(a) == true)
+        System.out.println(x.encrypt(b));
+        else
+        System.out.println(x.decrypt(b));
     }
 }
